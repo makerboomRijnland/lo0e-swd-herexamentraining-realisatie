@@ -42,19 +42,6 @@ CREATE TABLE `Movie_Actor` (
     `Last_Update` TIMESTAMP
 );
 
-CREATE TABLE `Category` (
-    `ID` INT NOT NULL AUTO_INCREMENT,
-    `Name` VARCHAR(255) NOT NULL,
-    `Last_Update` TIMESTAMP,
-    PRIMARY KEY (`ID`)
-);
-
-CREATE TABLE `Movie_Category` (
-    `Movie_ID` INT NOT NULL,
-    `Category_ID` INT NOT NULL,
-    `Last_Update` TIMESTAMP
-);
-
 INSERT INTO `Client` 
     (`ID`, `Email`, `Password`, `First_Name`, `Last_Name`, `Active`, `Create_Date`, `Last_Update`) 
 VALUES 
