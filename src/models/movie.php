@@ -65,14 +65,26 @@ class Movie {
                     array_push($params, "%" . $value . "%");
                     $param_types .= "s";
                     break;
+
+                case 'category':
+                    $sql .= " INNER JOIN Movie_Category ON `Movie`.`ID` = `Movie_Category`.`Movie_ID`";
+                    array_push($conditions, "`Movie_Category`.`Category_ID` = ?");
+                    array_push($params, $value);
+                    $param_types .= "i";
+                    break;
             }
         }
 
-        $sql .= " WHERE " . join(" AND ", $conditions);
+        if(count($conditions) > 0) {
+            $sql .= " WHERE " . join(" AND ", $conditions);
+        }
+
 
         $db_conn = Database::getConnection();
         $query = $db_conn->prepare($sql);
-        $query->bind_param($param_types, ...$params);
+        if(count($conditions) > 0) {
+            $query->bind_param($param_types, ...$params);
+        }
         
         $movies = [];
         if($query->execute()) {
