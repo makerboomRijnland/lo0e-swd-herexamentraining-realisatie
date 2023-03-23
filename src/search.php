@@ -4,7 +4,10 @@
     require_once './models/movie.php';
 
     if(isset($_GET['search'])) {
-        $movies = Movie::search($_GET['search_movie']);
+        $search_criteria = $_GET['search_movie'];
+        $movies = Movie::search($search_criteria);
+    } else {
+        $search_criteria = array('title' => null, 'actor' => null, 'category' => null);
     }
 
     $categories = Category::get_list();
@@ -24,12 +27,12 @@
         <form action="search.php" method="GET">
             <p>
                 <label for="search_movie_title">Title</label>
-                <input type="text" name="search_movie[title]" id="search_movie_title" value="<?= $_GET['search_movie']['title'] ?>">
+                <input type="text" name="search_movie[title]" id="search_movie_title" value="<?= $search_criteria['title'] ?>">
             </p>
             
             <p>
                 <label for="search_movie_actor">Actor</label>
-                <input type="text" name="search_movie[actor]" id="search_movie_actor" value="<?= $_GET['search_movie']['actor'] ?>">
+                <input type="text" name="search_movie[actor]" id="search_movie_actor" value="<?= $search_criteria['actor'] ?>">
             </p>
             
             <p>
@@ -38,7 +41,7 @@
                     <option value="">------</option>
 
                     <?php foreach ($categories as $id => $name) { ?>
-                        <option value="<?= $id ?>" <?= $_GET['search_movie']['category'] == $id ? 'selected' : '' ?>>
+                        <option value="<?= $id ?>" <?= $search_criteria['category'] == $id ? 'selected' : '' ?>>
                             <?= $name ?>
                         </option>
                     <?php } ?>
