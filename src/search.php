@@ -34,7 +34,7 @@
         <?php } else { ?>
             <ul>
                 <?php foreach($movies as $movie) { ?>
-                    <li><?= $movie->title ?></li>
+                    <li><a href="/movie.php?id=<?= $movie->id ?>"><?= $movie->title ?></a></li>
                 <?php } ?>
             </ul>
         <?php } ?>
