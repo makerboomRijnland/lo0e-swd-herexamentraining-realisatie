@@ -8,10 +8,18 @@ services:
             dockerfile: Dockerfile
         depends_on:
             - db
+        links:
+            - "db:db"
         volumes:
             - ./src:/var/www/html/
         ports:
             - 8000:80
+        environment:
+            MYSQL_HOSTNAME: db
+            MYSQL_DATABASE: movie_rental_system
+            MYSQL_USER: mrs
+            MYSQL_PASSWORD: mrs
+
     db:
         container_name: db
         image: mysql
