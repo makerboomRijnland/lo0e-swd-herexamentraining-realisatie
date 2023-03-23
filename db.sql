@@ -12,6 +12,22 @@ CREATE TABLE `Client` (
     PRIMARY KEY (`ID`)
 );
 
+CREATE TABLE `Movie` (
+    `ID` INT NOT NULL AUTO_INCREMENT,
+    `Title` VARCHAR(255) NOT NULL,
+    `Description` VARCHAR(255),
+    `Release_Year` INT(4),
+    `Rental_Duration` INT(10),
+    `Rental_Rate` DECIMAL(19,0),
+    `Length` INT(2),
+    `Replacement_Cost` DECIMAL(19,0),
+    `Rating` INT(10),
+    `Last_Update` TIMESTAMP,
+    `Special_Features` VARCHAR(255),
+    `Fulltext` TEXT,
+    PRIMARY KEY (`ID`)
+);
+
 INSERT INTO `Client` 
     (`ID`, `Email`, `Password`, `First_Name`, `Last_Name`, `Active`, `Create_Date`, `Last_Update`) 
 VALUES 
