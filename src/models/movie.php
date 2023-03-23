@@ -21,7 +21,7 @@ class Movie {
      */
     static function get($id) {
         $db_conn = Database::getConnection();
-        $query = $db_conn->prepare("SELECT `ID`, `Title`, `Description`, `Release_Year`, `Rental_Duration`, `Rental_Rate`, `Length`, `Replacement_Cost`, `Rating`, `Last_Update`, `Special_Features`, `Fulltext` FROM Movie WHERE ID=?");
+        $query = $db_conn->prepare("SELECT `Movie`.`ID`, `Movie`.`Title`, `Movie`.`Description`, `Movie`.`Release_Year`, `Movie`.`Rental_Duration`, `Movie`.`Rental_Rate`, `Movie`.`Length`, `Movie`.`Replacement_Cost`, `Movie`.`Rating`, `Movie`.`Last_Update`, `Movie`.`Special_Features`, `Movie`.`Fulltext` FROM Movie WHERE ID=?");
         $query->bind_param("i", $id);
         
         if($query->execute()) {
@@ -41,20 +41,34 @@ class Movie {
      * @param string $password
      */
     static function search($criteria = array()) {
-        $sql = "SELECT `ID`, `Title`, `Description`, `Release_Year`, `Rental_Duration`, `Rental_Rate`, `Length`, `Replacement_Cost`, `Rating`, `Last_Update`, `Special_Features`, `Fulltext` FROM Movie WHERE 1=1";
+        $sql = "SELECT `Movie`.`ID`, `Movie`.`Title`, `Movie`.`Description`, `Movie`.`Release_Year`, `Movie`.`Rental_Duration`, `Movie`.`Rental_Rate`, `Movie`.`Length`, `Movie`.`Replacement_Cost`, `Movie`.`Rating`, `Movie`.`Last_Update`, `Movie`.`Special_Features`, `Movie`.`Fulltext` FROM Movie";
         
         $param_types = "";
         $params = array();
+        $conditions = array();
         
         foreach ($criteria as $key => $value) {
+            if(empty($value)) {
+                continue;
+            }
             switch($key) {
                 case 'title':
-                    $sql .= " AND `Title` LIKE ?";
+                    array_push($conditions, "`Movie`.`Title` LIKE ?");
                     array_push($params, "%".$value."%");
+                    $param_types .= "s";
+                    break;
+
+                case 'actor':
+                    $sql .= " INNER JOIN Movie_Actor ON `Movie`.`ID` = `Movie_Actor`.`Movie_ID`";
+                    $sql .= " INNER JOIN Actor ON `Movie_Actor`.`Actor_ID` = `Actor`.`ID`";
+                    array_push($conditions, "`Actor`.`First_Name` LIKE ?");
+                    array_push($params, "%" . $value . "%");
                     $param_types .= "s";
                     break;
             }
         }
+
+        $sql .= " WHERE " . join(" AND ", $conditions);
 
         $db_conn = Database::getConnection();
         $query = $db_conn->prepare($sql);

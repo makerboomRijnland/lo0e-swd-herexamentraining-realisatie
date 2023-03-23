@@ -23,6 +23,10 @@
                 <label for="search_movie_title">Title</label>
                 <input type="text" name="search_movie[title]" id="search_movie_title">
             </p>
+            <p>
+                <label for="search_movie_actor">Actor</label>
+                <input type="text" name="search_movie[actor]" id="search_movie_actor">
+            </p>
 
             <p>
                 <button type="submit" name="search">Search</button>

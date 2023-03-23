@@ -28,6 +28,20 @@ CREATE TABLE `Movie` (
     PRIMARY KEY (`ID`)
 );
 
+CREATE TABLE `Actor` (
+    `ID` INT NOT NULL AUTO_INCREMENT,
+    `First_Name` VARCHAR(255) NOT NULL,
+    `Last_Name` VARCHAR(255) NOT NULL,
+    `Last_Update` TIMESTAMP,
+    PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `Movie_Actor` (
+    `Movie_ID` INT NOT NULL,
+    `Actor_ID` INT NOT NULL,
+    `Last_Update` TIMESTAMP
+);
+
 INSERT INTO `Client` 
     (`ID`, `Email`, `Password`, `First_Name`, `Last_Name`, `Active`, `Create_Date`, `Last_Update`) 
 VALUES 
