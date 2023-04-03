@@ -6,6 +6,10 @@
     if(is_null($movie)) {
         die("No movie!");
     }
+
+    if(isset($_POST['movie'])) {
+        $movie->update($_POST['movie']);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +39,7 @@
 
     -->
 
-    <form action="POST">
+    <form method="POST">
         <h3>Details</h3>
 
         <dl>
@@ -73,7 +77,13 @@
 
         <h3>Full text</h3>
 
-        <textarea name="move[full_text]" id="movie_full_text" cols="30" rows="10"><?= $movie->full_text ?></textarea>
+        <p>
+            <textarea name="move[full_text]" id="movie_full_text" cols="30" rows="10"><?= $movie->full_text ?></textarea>
+        </p>
+
+        <p>
+            <button type="submit">Update</button>
+        </p>
     </form>
     
     

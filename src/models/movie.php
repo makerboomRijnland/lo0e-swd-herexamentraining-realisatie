@@ -148,4 +148,24 @@ class Movie {
 
         return $this;
     }
+
+    function update($properties) {
+        foreach ($properties as $key => $value) {
+            if(isset($this->$key)) {
+                $this->$key = $value;
+            }
+        }
+
+        $this->save();
+    }
+
+    /**
+     * @return bool
+     */
+    function save() {
+        $db_conn = Database::getConnection();
+        $query = $db_conn->prepare("UPDATE `Movie` SET `Title` = ?, `Description` = ?, `Release_Year` = ?, `Rental_Duration` = ?, `Rental_Rate` = ?, `Length` = ?, `Replacement_Cost` = ?, `Rating` = ?, `Special_Features` = ?, `Fulltext` = ? WHERE `ID` = ?");
+        $query->bind_param("ssiiiiiissi", $this->title, $this->description, $this->release_year, $this->rental_duration, $this->rental_rate, $this->length, $this->replacement_cost, $this->rating, $this->special_features, $this->full_text, $this->id);
+        return $query->execute();
+    }
 }
