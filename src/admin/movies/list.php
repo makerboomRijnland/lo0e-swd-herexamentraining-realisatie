@@ -1,6 +1,6 @@
 <?php 
-    require_once '../lib/conf.php';
-    require_once '../models/movie.php';
+    require_once '../../lib/conf.php';
+    require_once '../../models/movie.php';
 
     $movies = Movie::all();
 ?>
@@ -14,7 +14,11 @@
     <title>Movie Rental System - Admin Movies</title>
 </head>
 <body>
-    <?php include '../partials/_header.php'; ?>
+    <?php include '../../partials/_header.php'; ?>
+
+    <nav>
+        <a href="/admin/movies/list.php">Movies</a>
+    </nav>
 
     <!-- 
     public $id;
@@ -38,16 +42,18 @@
                 <th>Title</th>
                 <th>Length</th>
                 <th>Rating</th>
+                <th>Edit</th>
             </tr>
         </thead>
 
         <tbody>
             <?php foreach($movies as $movie) { ?>
                 <tr>
-                    <th><a href="./movies/show.php?id=<?= $movie->id ?>"><?= $movie->id ?></a></th>
-                    <td><a href="./movies/edit.php?id=<?= $movie->id ?>"><?= $movie->title ?></a></td>
+                    <th><a href="./show.php?id=<?= $movie->id ?>"><?= $movie->id ?></a></th>
+                    <td><a href="./show.php?id=<?= $movie->id ?>"><?= $movie->title ?></a></td>
                     <td><?= $movie->length ?> hrs</td>
                     <td><?= $movie->rating ?> / 10</td>
+                    <td><a href="./edit.php?id=<?= $movie->id ?>">edit</td>
                 </tr>
             <?php } ?>
         </tbody>

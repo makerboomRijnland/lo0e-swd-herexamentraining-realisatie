@@ -23,6 +23,10 @@
 <body>
     <?php include '../../partials/_header.php'; ?>
 
+    <nav>
+        <a href="/admin/movies/list.php">Movies</a>
+    </nav>
+
     <main>
         <h1>New movie</h1>
     

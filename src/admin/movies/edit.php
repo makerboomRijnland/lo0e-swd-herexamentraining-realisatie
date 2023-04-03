@@ -30,6 +30,10 @@
 <body>
     <?php include '../../partials/_header.php'; ?>
 
+    <nav>
+        <a href="/admin/movies/list.php">Movies</a>
+    </nav>
+
     <main>
         <h1>Edit movie</h1>
         <form method="POST">
