@@ -183,4 +183,11 @@ class Movie {
         }
         
     }
+
+    function delete() {
+        $db_conn = Database::getConnection();
+        $query = $db_conn->prepare("DELETE FROM `Movie` WHERE `ID` = ?");
+        $query->bind_param("i", $this->id);
+        return $query->execute();
+    }
 }

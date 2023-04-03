@@ -7,7 +7,14 @@
         die("No movie!");
     }
 
-    if(isset($_POST['movie'])) {
+    if(isset($_POST['delete'])) {
+        if($movie->delete()) {
+            header("Location: ../movies.php");
+            exit();
+        }
+    }
+
+    if(isset($_POST['update'])) {
         $movie->update($_POST['movie']);
     }
 ?>
@@ -29,7 +36,8 @@
             <?php include './_form.php'; ?>
 
             <p>
-                <button type="submit">Update</button>
+                <button type="submit" name="update">Update</button>
+                <button type="submit" name="delete">Delete</button>
             </p>
         </form>
     </main>
