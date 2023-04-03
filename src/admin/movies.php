@@ -1,3 +1,10 @@
+<?php 
+    require_once '../lib/conf.php';
+    require_once '../models/movie.php';
+
+    $movies = Movie::all();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,18 +42,14 @@
         </thead>
 
         <tbody>
-            <tr>
-                <th><a href="./movies/edit.php?id=1">1</a></th>
-                <td><a href="./movies/edit.php?id=1">Movie A</a></td>
-                <td>2hrs</td>
-                <td>5 / 10</td>
-            </tr>
-            <tr>
-                <th>2</th>
-                <td>Movie B</td>
-                <td>2hrs</td>
-                <td>8 / 10</td>
-            </tr>
+            <?php foreach($movies as $movie) { ?>
+                <tr>
+                    <th><a href="./movies/edit.php?id=<?= $movie->id ?>"><?= $movie->id ?></a></th>
+                    <td><a href="./movies/edit.php?id=<?= $movie->id ?>"><?= $movie->title ?></a></td>
+                    <td><?= $movie->length ?> hrs</td>
+                    <td><?= $movie->rating ?> / 10</td>
+                </tr>
+            <?php } ?>
         </tbody>
     </table>
 </body>
