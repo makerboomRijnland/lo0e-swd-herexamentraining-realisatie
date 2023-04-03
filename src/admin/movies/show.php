@@ -7,23 +7,7 @@
     <title>Movie Rental System - Admin Movies</title>
 </head>
 <body>
-    <?php include '../partials/_header.php'; ?>
-
-    <!-- 
-    public $id;
-    public $title;
-    public $description;
-    public $release_year;
-    public $rental_duration;
-    public $rental_rate;
-    public $length;
-    public $replacement_cost;
-    public $rating;
-    public $last_update;
-    public $special_features;
-    public $full_text;
-
-    -->
+    <?php include '../../partials/_header.php'; ?>
     
     <h3>Details</h3>
     <dl>

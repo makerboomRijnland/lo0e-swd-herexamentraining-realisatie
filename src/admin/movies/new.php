@@ -2,13 +2,13 @@
     require_once '../../lib/conf.php';
     require_once '../../models/movie.php';
 
-    $movie = Movie::get($_GET['id']);
-    if(is_null($movie)) {
-        die("No movie!");
-    }
+    $movie = new Movie();
 
     if(isset($_POST['movie'])) {
-        $movie->update($_POST['movie']);
+        if($movie->update($_POST['movie'])) {
+            header("Location: ./show.php?id=".$movie->id);
+            exit();
+        }
     }
 ?>
 
@@ -24,14 +24,17 @@
     <?php include '../../partials/_header.php'; ?>
 
     <main>
-        <h1>Edit movie</h1>
+        <h1>New movie</h1>
+    
         <form method="POST">
             <?php include './_form.php'; ?>
 
             <p>
-                <button type="submit">Update</button>
+                <button type="submit">Create</button>
             </p>
         </form>
     </main>
+    
+
 </body>
 </html>

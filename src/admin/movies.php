@@ -44,7 +44,7 @@
         <tbody>
             <?php foreach($movies as $movie) { ?>
                 <tr>
-                    <th><a href="./movies/edit.php?id=<?= $movie->id ?>"><?= $movie->id ?></a></th>
+                    <th><a href="./movies/show.php?id=<?= $movie->id ?>"><?= $movie->id ?></a></th>
                     <td><a href="./movies/edit.php?id=<?= $movie->id ?>"><?= $movie->title ?></a></td>
                     <td><?= $movie->length ?> hrs</td>
                     <td><?= $movie->rating ?> / 10</td>
