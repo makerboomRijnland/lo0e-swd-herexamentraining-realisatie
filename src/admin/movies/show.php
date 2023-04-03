@@ -1,3 +1,13 @@
+<?php 
+    require_once '../../lib/conf.php';
+    require_once '../../models/movie.php';
+
+    $movie = Movie::get($_GET['id']);
+    if(is_null($movie)) {
+        die("No movie!");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,48 +22,43 @@
     <h3>Details</h3>
     <dl>
         <dt>ID</dt>
-        <dd>1</dd>
+        <dd><?= $movie->id ?></dd>
 
         <dt>Title</dt>
-        <dd>Movie A</dd>
+        <dd><?= $movie->title ?></dd>
 
         <dt>Description</dt>
-        <dd>Movie A is the best movie you can watch.</dd>
+        <dd><?= $movie->description ?></dd>
 
         <dt>Release year</dt>
-        <dd>2021</dd>
+        <dd><?= $movie->release_year ?></dd>
 
         <dt>Length</dt>
-        <dd>2 hrs</dd>
+        <dd><?= $movie->length ?> hrs</dd>
 
         <dt>Special features</dt>
-        <dd>None</dd>
+        <dd><?= $movie->special_features ?></dd>
 
         <dt>Last update</dt>
-        <dd>March 21st, 2023</dd>
+        <dd><?= empty($movie_last_update) ? "" : date_format($movie->last_update, "F jS, Y") ?></dd>
     </dl>
 
     <h3>Rental info</h3>
 
     <dl>
         <dt>Rental duration</dt>
-        <dd>7 days</dd>   
+        <dd><?= $movie->rental_duration ?> days</dd>   
 
         <dt>Rental rate</dt>
-        <dd>&dollar; 7,00</dd>
+        <dd>&dollar; <?= $movie->rental_rate ?>,00</dd>
 
         <dt>Replacement cost</dt>
-        <dd>&dollar; 54,00</dd>
+        <dd>&dollar; <?= $movie->replacement_cost ?>,00</dd>
     </dl>
 
     <h3>Full text</h3>
 
-    <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-        Dolor eaque voluptatum at quod maxime delectus eos, 
-        excepturi itaque labore obcaecati ullam reiciendis hic quasi, ipsum minima. 
-        Nostrum eveniet ullam fugit!
-    </p>
+    <p><?= $movie->full_text ?></p>
 
 </body>
 </html>
