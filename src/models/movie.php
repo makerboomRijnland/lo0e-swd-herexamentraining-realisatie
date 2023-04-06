@@ -149,4 +149,19 @@ class Movie {
 
         return $this;
     }
+
+
+    function save() {
+        $db_conn = Database::getConnection();
+        $sql = "INSERT INTO `Movie` (`ID`, `Title`, `Description`, `Release_Year`, `Rental_Duration`, `Rental_Rate`, `Length`, `Replacement_Cost`, `Rating`, `Last_Update`, `Special_Features`, `Fulltext`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = $db_conn->prepare($sql);
+        $query->bind_param("ssiiiiiisss", $this->title, $this->description, $this->release_year, $this->rental_duration, $this->rental_rate, $this->length, $this->replacement_cost, $this->rating, $this->last_update, $this->special_features, $this->full_text);
+
+        if($query->execute()) {
+            $this->id = $query->insert_id;
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

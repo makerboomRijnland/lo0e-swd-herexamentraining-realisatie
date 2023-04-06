@@ -1,6 +1,17 @@
 <?php
     require_once '../../lib/conf.php';
     require_once '../../models/movie.php';
+
+    // array(Title => '', 'Description', ...)
+    if(isset($_POST['new_movie'])) {
+        $movie = new Movie($_POST['movie']);
+        if($movie->save()) {
+            header("Location: /admin/movies/show.php?id=".$movie->id);
+            exit();
+        }
+    } else {
+        $movie = new Movie();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -27,27 +38,27 @@
         <form method="POST">
             <p>
                 <label for="movie_title">Title</label>
-                <input type="text" name="movie[title]" id="movie_title">
+                <input type="text" name="movie[Title]" id="movie_title" value="<?= $movie->title ?>">
             </p>
 
             <p>
                 <label for="movie_description">Description</label>
-                <input type="text" name="movie[description]" id="movie_description">
+                <input type="text" name="movie[Description]" id="movie_description" value="<?= $movie->description ?>">
             </p>
 
             <p>
                 <label for="movie_release_year">Release year</label>
-                <input type="number" minlength="4" maxlength="4" name="movie[release_year]" id="movie_release_year">
+                <input type="number" minlength="4" maxlength="4" name="movie[Release_Year]" id="movie_release_year" value="<?= $movie->release_year ?>">
             </p>
 
             <p>
                 <label for="movie_length">Length</label>
-                <input type="number" name="movie[length]" id="movie_length">
+                <input type="number" name="movie[Length]" id="movie_length" value="<?= $movie->length ?>">
             </p>
 
             <p>
                 <label for="movie_full_text">Full Text</label><br>
-                <textarea name="movie[full_text]" id="movie_full_text" cols="30" rows="10"></textarea>
+                <textarea name="movie[Fulltext]" id="movie_full_text" cols="30" rows="10"><?= $movie->full_text ?></textarea>
             </p>
 
             <p>

@@ -26,6 +26,10 @@
     <main>
         <h1>Movie Overview</h1>
 
+        <nav>
+            <a href="./new.php">New Movie</a>
+        </nav>
+        
         <table>
             <thead>
                 <th>ID</th>
