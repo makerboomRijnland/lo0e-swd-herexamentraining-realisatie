@@ -1,6 +1,9 @@
 <?php
     require_once '../../lib/conf.php';
     require_once '../../models/movie.php';
+
+    // if(IS_ADMIN_NIET_INGELOGD)
+        // redirect naar de admin inlog.
     
     if(!isset($_GET['id'])) {
         header("Location: /admin/index.php");
