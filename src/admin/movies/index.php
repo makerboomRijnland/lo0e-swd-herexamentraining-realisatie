@@ -1,3 +1,10 @@
+<?php
+    require_once '../../lib/conf.php';
+    require_once '../../models/movie.php';
+
+    $movies = Movie::all();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,15 +33,12 @@
             </thead>
             
             <tbody>
-                <tr>
-                    <td>101</td>
-                    <td>Chucky's Bride</td>
-                </tr>
-                
-                <tr>
-                    <td>102</td>
-                    <td>Wolf of Wallstreet</td>
-                </tr>
+                <?php foreach($movies as $movie) { ?>
+                    <tr>
+                        <td><?= $movie->id ?></td>
+                        <td><?= $movie->title ?></td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
     </main>

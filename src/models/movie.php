@@ -16,6 +16,24 @@ class Movie {
     public $special_features;
     public $full_text;
 
+    static function all($limit = 100, $offset = 0) {
+        $db_conn = Database::getConnection();
+        $query = $db_conn->prepare("SELECT `Movie`.`ID`, `Movie`.`Title`, `Movie`.`Description`, `Movie`.`Release_Year`, `Movie`.`Rental_Duration`, `Movie`.`Rental_Rate`, `Movie`.`Length`, `Movie`.`Replacement_Cost`, `Movie`.`Rating`, `Movie`.`Last_Update`, `Movie`.`Special_Features`, `Movie`.`Fulltext` FROM Movie LIMIT ? OFFSET ?");
+        $query->bind_param("ii", $limit, $offset);
+
+        $movies = array();
+
+        if($query->execute()) {
+            $result = $query->get_result();
+            while($row = $result->fetch_assoc()) {
+                $movie = new self($row);
+                array_push($movies, $movie);
+            }
+        }
+
+        return $movies;
+    }
+
     /**
      * @param int $id
      */
@@ -23,7 +41,7 @@ class Movie {
         $db_conn = Database::getConnection();
         $query = $db_conn->prepare("SELECT `Movie`.`ID`, `Movie`.`Title`, `Movie`.`Description`, `Movie`.`Release_Year`, `Movie`.`Rental_Duration`, `Movie`.`Rental_Rate`, `Movie`.`Length`, `Movie`.`Replacement_Cost`, `Movie`.`Rating`, `Movie`.`Last_Update`, `Movie`.`Special_Features`, `Movie`.`Fulltext` FROM Movie WHERE ID=?");
         $query->bind_param("i", $id);
-        
+
         if($query->execute()) {
             $result = $query->get_result();
             $row = $result->fetch_assoc();
