@@ -29,11 +29,12 @@
         <nav>
             <a href="./new.php">New Movie</a>
         </nav>
-        
+
         <table>
             <thead>
                 <th>ID</th>
                 <th>Title</th>
+                <th>links</th>
             </thead>
             
             <tbody>
@@ -42,6 +43,9 @@
                         <td><?= $movie->id ?></td>
                         <td>
                             <a href="/admin/movies/show.php?id=<?= $movie->id ?>"><?= $movie->title ?></a>
+                        </td>
+                        <td>
+                            <a href="/admin/movies/edit.php?id=<?= $movie->id ?>">edit</a>
                         </td>
                     </tr>
                 <?php } ?>

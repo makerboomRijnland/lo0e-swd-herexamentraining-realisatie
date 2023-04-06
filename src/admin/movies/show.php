@@ -38,6 +38,10 @@
     <main>
         <h1>Movie Details</h1>
 
+        <nav>
+            <a href="/admin/movies/edit.php?id=<?= $movie->id ?>">Edit movie</a>
+        </nav>
+
         <!-- public $id;
     public $title;
     public $description;
