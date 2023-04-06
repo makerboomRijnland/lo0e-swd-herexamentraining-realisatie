@@ -12,11 +12,13 @@
     <header>
         <nav>
             <a href="/admin/index.php">Admin</a>
+            <a href="/admin/movies/index.php">Movies</a>
         </nav>
     </header>
 
     <main>
         <h1>Admin Dashboard</h1>
+
     </main>
 </body>
 
