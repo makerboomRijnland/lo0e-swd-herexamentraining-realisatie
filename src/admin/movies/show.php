@@ -1,10 +1,19 @@
-<?php 
+<?php
     require_once '../../lib/conf.php';
     require_once '../../models/movie.php';
 
+    // if(IS_ADMIN_NIET_INGELOGD)
+        // redirect naar de admin inlog.
+    
+    if(!isset($_GET['id'])) {
+        header("Location: /admin/index.php");
+        die();
+    }
     $movie = Movie::get($_GET['id']);
-    if(is_null($movie)) {
-        die("No movie!");
+
+    if(empty($movie)) {
+        header("Location: /admin/movies/index.php");
+        die();
     }
 ?>
 
@@ -14,17 +23,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Rental System - Admin Movies</title>
+    <title>Movie Rental System - Admin Movie</title>
 </head>
-<body>
-    <?php include '../../partials/_header.php'; ?>
 
-    <nav>
-        <a href="/admin/movies/list.php">Movies</a>
-    </nav>
-    
+<body>
+    <header>
+        <nav>
+            <a href="/admin/index.php">Admin</a>
+            <a href="/admin/movies/index.php">Movies</a>
+        </nav>
+    </header>
+
     <main>
-        <h3>Details</h3>
+        <h1>Movie Details</h1>
+
+        <nav>
+            <a href="/admin/movies/edit.php?id=<?= $movie->id ?>">Edit movie</a>
+        </nav>
+
+        <!-- public $id;
+    public $title;
+    public $description;
+    public $release_year;
+    public $rental_duration;
+    public $rental_rate;
+    public $length;
+    public $replacement_cost;
+    public $rating;
+    public $last_update;
+    public $special_features;
+    public $full_text; -->
+
+        <h2>General</h2>
         <dl>
             <dt>ID</dt>
             <dd><?= $movie->id ?></dd>
@@ -33,39 +63,15 @@
             <dd><?= $movie->title ?></dd>
 
             <dt>Description</dt>
-            <dd><?= $movie->description ?></dd>
+            <dd><?= $movie->id ?></dd>
 
-            <dt>Release year</dt>
+            <dt>Release Year</dt>
             <dd><?= $movie->release_year ?></dd>
 
             <dt>Length</dt>
-            <dd><?= $movie->length ?> hrs</dd>
-
-            <dt>Special features</dt>
-            <dd><?= $movie->special_features ?></dd>
-
-            <dt>Last update</dt>
-            <dd><?= empty($movie_last_update) ? "" : date_format($movie->last_update, "F jS, Y") ?></dd>
+            <dd><?= $movie->length ?></dd>
         </dl>
-
-        <h3>Rental info</h3>
-
-        <dl>
-            <dt>Rental duration</dt>
-            <dd><?= $movie->rental_duration ?> days</dd>   
-
-            <dt>Rental rate</dt>
-            <dd>&dollar; <?= $movie->rental_rate ?>,00</dd>
-
-            <dt>Replacement cost</dt>
-            <dd>&dollar; <?= $movie->replacement_cost ?>,00</dd>
-        </dl>
-
-        <h3>Full text</h3>
-
-        <p><?= $movie->full_text ?></p>
-
     </main>
-
 </body>
+
 </html>
