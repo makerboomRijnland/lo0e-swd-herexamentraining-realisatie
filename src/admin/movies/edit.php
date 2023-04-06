@@ -18,6 +18,14 @@
     if(isset($_POST['edit_movie'])) {
         if($movie->update($_POST['movie'])) {
             header("Location: /admin/movies/show.php?id=".$movie->id);
+            exit();
+        }
+    }
+
+    if(isset($_POST['delete_movie'])) {
+        if($movie->delete()) {
+            header("Location: /admin/movies/index.php");
+            exit();
         }
     }
 ?>
@@ -71,6 +79,7 @@
 
             <p>
                 <button name="edit_movie" type="submit">Update</button>
+                <button name="delete_movie" type="submit">Delete</button>
             </p>
 
         </form>
