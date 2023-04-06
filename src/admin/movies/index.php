@@ -36,7 +36,9 @@
                 <?php foreach($movies as $movie) { ?>
                     <tr>
                         <td><?= $movie->id ?></td>
-                        <td><?= $movie->title ?></td>
+                        <td>
+                            <a href="/admin/movies/show.php?id=<?= $movie->id ?>"><?= $movie->title ?></a>
+                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
